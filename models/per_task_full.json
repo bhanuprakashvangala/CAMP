@@ -1,0 +1,732 @@
+{
+  "iwd::demToGraph": {
+    "n": 332,
+    "n_c": 0,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.030676808297828664
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.03287077516016313
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.20460981635622502
+      },
+      {
+        "name": "RF",
+        "sigma": 0.031060139497127704
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.032910776224757625
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.031172676936728812
+      }
+    ],
+    "joint_models": null
+  },
+  "iwd::extractTroughTransects": {
+    "n": 332,
+    "n_c": 0,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.6168382878613354
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.23711606615536013
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.5121385488833707
+      },
+      {
+        "name": "RF",
+        "sigma": 0.2207762402439419
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.2597790604706286
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.23208694804545807
+      }
+    ],
+    "joint_models": null
+  },
+  "iwd::graphToShapefile": {
+    "n": 332,
+    "n_c": 0,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 1.010002255229223
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.8748398000779107
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.8200815961485108
+      },
+      {
+        "name": "RF",
+        "sigma": 0.9454000699510582
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.9352541599484497
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.9588876946408422
+      }
+    ],
+    "joint_models": null
+  },
+  "iwd::networkAnalysis": {
+    "n": 332,
+    "n_c": 0,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.22713842420402772
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.2443137463880244
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.2755716846632342
+      },
+      {
+        "name": "RF",
+        "sigma": 0.27252426111093575
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.2571957697950728
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.25898743534871477
+      }
+    ],
+    "joint_models": null
+  },
+  "iwd::transectAnalysis": {
+    "n": 332,
+    "n_c": 0,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.11979299847969795
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.19336239629795407
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.07413057405385891
+      },
+      {
+        "name": "RF",
+        "sigma": 0.1820549410588953
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.1249695046576292
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.1842229046499789
+      }
+    ],
+    "joint_models": null
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:BISMARK_ALIGN": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.0003143397848384709
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.0003319414215727981
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.23107151294144485
+      },
+      {
+        "name": "RF",
+        "sigma": 0.00037036129627809525
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.0003379983353404662
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.000399156537260626
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.0002111160205576297
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.00021828341703817084
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.4608248573943332
+      },
+      {
+        "name": "RF",
+        "sigma": 0.00020517303540657858
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.0002302843938307715
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.00020385328051580784
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:BISMARK_DEDUPLICATE": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 1.2112470705304232
+      },
+      {
+        "name": "kNN",
+        "sigma": 1.1374547254538838
+      },
+      {
+        "name": "MLP",
+        "sigma": 1.1986556730850904
+      },
+      {
+        "name": "RF",
+        "sigma": 1.1554791545260872
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 1.1823516468591058
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 1.2374213202728763
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.09871965806113096
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.4277162116835835
+      },
+      {
+        "name": "MLP",
+        "sigma": 1.2154754276026778
+      },
+      {
+        "name": "RF",
+        "sigma": 0.2984208838917574
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.3755844127245059
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.26357806574321113
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:BISMARK_METHYLATIONEXTRACTOR": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 1.0665551502199806
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.9420958300926044
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.9390914268614909
+      },
+      {
+        "name": "RF",
+        "sigma": 0.9841676502564202
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.9411390717050085
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 1.074116333548141
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.4579941591158102
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.19207383972226788
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.5576314327265632
+      },
+      {
+        "name": "RF",
+        "sigma": 0.11250080802530839
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.16391978059168008
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.12643303531502603
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:BISMARK_REPORT": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.8615208534643111
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.7882248365443425
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.9125769408126115
+      },
+      {
+        "name": "RF",
+        "sigma": 0.8259642045432927
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.8179483135912117
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.8710665701398316
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.852930981026461
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.8848811144869927
+      },
+      {
+        "name": "MLP",
+        "sigma": 1.305833472664779
+      },
+      {
+        "name": "RF",
+        "sigma": 0.911928457488268
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 1.0390706352554095
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.979582045399716
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:SAMTOOLS_SORT_ALIGNED": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.7286585881586444
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.8005847251081565
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.7898508594778698
+      },
+      {
+        "name": "RF",
+        "sigma": 0.841487186801941
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.8298548635760562
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 1.012668272281935
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.7541804690323952
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.6929858468977721
+      },
+      {
+        "name": "MLP",
+        "sigma": 1.7576963866002373
+      },
+      {
+        "name": "RF",
+        "sigma": 0.6535839516550462
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.7074534629171462
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.598574082622193
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:BISMARK:SAMTOOLS_SORT_DEDUPLICATED": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.7269844537519912
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.8156581413264883
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.8194269116125507
+      },
+      {
+        "name": "RF",
+        "sigma": 0.7480530133592384
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.7963224206745627
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.7159144005674138
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.7550101591950765
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.6901409473642083
+      },
+      {
+        "name": "MLP",
+        "sigma": 1.0075773125171148
+      },
+      {
+        "name": "RF",
+        "sigma": 0.6366095504940696
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.8584058504475999
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.5972059370628662
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:FASTQC": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.13634324279399618
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.14763162932967985
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.19536685331986675
+      },
+      {
+        "name": "RF",
+        "sigma": 0.1726389852557699
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.15271735962157576
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.19938147722497387
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.14855247711522226
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.14121455219087703
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.5993409495943824
+      },
+      {
+        "name": "RF",
+        "sigma": 0.14782806699450587
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.18518884204759076
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.15309198961558926
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:PRESEQ_LCEXTRAP": {
+    "n": 36,
+    "n_c": 36,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.7328654199725976
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.6939869883279297
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.8894569369953922
+      },
+      {
+        "name": "RF",
+        "sigma": 0.6829248638361538
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.7192026152327542
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.7996249865012601
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.2751047395063781
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.3366056878659475
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.5316327254496791
+      },
+      {
+        "name": "RF",
+        "sigma": 0.25158619530989884
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.384083977005987
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.2605482610694608
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:QUALIMAP_BAMQC": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.5579440890810482
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.5935140404851925
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.5795744897923273
+      },
+      {
+        "name": "RF",
+        "sigma": 0.5531823619138827
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.6125760002341295
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.5760491630039245
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.15319706522881343
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.2697781096801662
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.7693816379476726
+      },
+      {
+        "name": "RF",
+        "sigma": 0.2237032443408906
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.27803462965088216
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.21986321480768406
+      }
+    ]
+  },
+  "methylseq_naga::NFCORE_METHYLSEQ:METHYLSEQ:TRIMGALORE": {
+    "n": 108,
+    "n_c": 108,
+    "safety_k": 1.5,
+    "sizey_models": [
+      {
+        "name": "LR",
+        "sigma": 0.4336673755545144
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.4802786109673366
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.48433535866933114
+      },
+      {
+        "name": "RF",
+        "sigma": 0.5222951824439429
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.5061997853458424
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.5823948431245345
+      }
+    ],
+    "joint_models": [
+      {
+        "name": "LR",
+        "sigma": 0.23247107651699883
+      },
+      {
+        "name": "kNN",
+        "sigma": 0.23132303910078247
+      },
+      {
+        "name": "MLP",
+        "sigma": 0.7189511979083681
+      },
+      {
+        "name": "RF",
+        "sigma": 0.14880396150881947
+      },
+      {
+        "name": "LightGBM",
+        "sigma": 0.23887188169325477
+      },
+      {
+        "name": "NGBoost",
+        "sigma": 0.12626499709599887
+      }
+    ]
+  }
+}
