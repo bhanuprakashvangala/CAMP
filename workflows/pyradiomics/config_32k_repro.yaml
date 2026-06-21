@@ -1,0 +1,13 @@
+samplesheet: usable_samples_32k_local.tsv
+params: Params_32k.yaml
+feature_classes:
+  - firstorder
+  - shape
+  - glcm
+  - glrlm
+  - glszm
+  - gldm
+  - ngtdm
+resources:
+  extract_mem_mb: 2000
+  extract_runtime_min: 240

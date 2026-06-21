@@ -1,0 +1,11 @@
+workflow_source_dir=IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/bowtie
+workflow_entrypoint=main.nf
+workflow_config=nextflow_repro.config
+run_manifest=data/public_runs_prjeb11501_20.tsv
+run_manifest_rows=20
+study_accession=PRJEB11501
+reference_fasta_url=https://ftp.ensembl.org/pub/current_fasta/saccharomyces_cerevisiae/dna/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa.gz
+reference_organism=Saccharomyces cerevisiae
+manifest_chunks_per_run=50
+compact_task_rows_used_in_experiment_2=2928
+raw_retry_expanded_task_rows_seen_in_preserved_merged_csv=3058

@@ -1,0 +1,12 @@
+workflow_source_dir=IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/minimap
+workflow_entrypoint=main.nf
+workflow_config=nextflow_repro.config
+dataset_type=synthetic_generated
+reference_seed=1234
+window_manifest_seed=7777
+reference_chromosomes=chr1:1200000,chr2:900000,chr3:700000,chrX:700000
+reference_annotation_classes=segmental_duplications,tandem_repeat_expansions,tandem_repeat_normals
+default_n_windows=1250
+window_type_mix=unique_window:40%,segdup_window:35%,tr_window:25%
+compact_task_rows_used_in_experiment_2=2385
+raw_retry_expanded_task_rows_seen_in_preserved_merged_csv=5032

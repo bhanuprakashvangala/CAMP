@@ -1,0 +1,9 @@
+workflow_source_url=https://github.com/nf-core/mag.git
+workflow_version=5.4.2
+recorded_run_commit=5dabb0159ac0104885e09f301db22126e8fcb394
+paper_dataset_description=nf-core/mag test-profile dataset used for the held-out deployment run in the paper
+recorded_run_samplesheet_url=https://raw.githubusercontent.com/nf-core/test-datasets/mag/samplesheets/samplesheet.multirun.v4.csv
+recorded_cat_db_url=https://raw.githubusercontent.com/nf-core/test-datasets/mag/databases/cat/minigut_cat.tar.gz
+recorded_gtdb_db_url=https://raw.githubusercontent.com/nf-core/test-datasets/mag/databases/gtdbtk/gtdbtk_mockup_20250422.tar.gz
+recorded_busco_db_url=https://raw.githubusercontent.com/nf-core/test-datasets/mag/databases/busco/bacteria_odb10.2024-01-08.tar.gz
+recorded_run_command_profile=test,apptainer

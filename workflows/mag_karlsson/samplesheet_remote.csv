@@ -1,0 +1,4 @@
+sample,group,short_reads_1,short_reads_2,long_reads,short_reads_platform
+ERR260132,karlsson,/shared/karlsson_data/ERR260132_1.fastq.gz,/shared/karlsson_data/ERR260132_2.fastq.gz,,ILLUMINA
+ERR260133,karlsson,/shared/karlsson_data/ERR260133_1.fastq.gz,/shared/karlsson_data/ERR260133_2.fastq.gz,,ILLUMINA
+ERR260134,karlsson,/shared/karlsson_data/ERR260134_1.fastq.gz,/shared/karlsson_data/ERR260134_2.fastq.gz,,ILLUMINA

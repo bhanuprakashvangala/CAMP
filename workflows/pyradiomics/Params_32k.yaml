@@ -1,0 +1,46 @@
+# PyRadiomics settings for the 32k TotalSegmentator run.
+# These relax tiny image/mask geometry differences, allow mask correction,
+# and permit thin non-single-voxel ROIs.
+setting:
+  binWidth: 25
+  label: 1
+  interpolator: 'sitkBSpline'
+  resampledPixelSpacing:
+  weightingNorm:
+  geometryTolerance: 0.0001
+  correctMask: true
+  minimumROIDimensions: 1
+
+imageType:
+  Original: {}
+
+featureClass:
+  shape:
+  firstorder: []
+  glcm:
+    - 'Autocorrelation'
+    - 'JointAverage'
+    - 'ClusterProminence'
+    - 'ClusterShade'
+    - 'ClusterTendency'
+    - 'Contrast'
+    - 'Correlation'
+    - 'DifferenceAverage'
+    - 'DifferenceEntropy'
+    - 'DifferenceVariance'
+    - 'JointEnergy'
+    - 'JointEntropy'
+    - 'Imc1'
+    - 'Imc2'
+    - 'Idm'
+    - 'Idmn'
+    - 'Id'
+    - 'Idn'
+    - 'InverseVariance'
+    - 'MaximumProbability'
+    - 'SumEntropy'
+    - 'SumSquares'
+  glrlm:
+  glszm:
+  gldm:
+  ngtdm:

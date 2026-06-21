@@ -1,0 +1,3 @@
+label,url,size_bytes,sha256,width,height,frames,mode
+cycif-tonsil-cycle1.ome.tif,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/imaging/ome-tiff/cycif-tonsil-cycle1.ome.tif,2503563,D321EDDC3BCDCFB8E5DFD6E1FF0052F538C6171F66F89B5463BDF8EFDED374DC,220,180,36,I;16
+cycif-tonsil-cycle2.ome.tif,https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/imaging/ome-tiff/cycif-tonsil-cycle2.ome.tif,2248976,E10D77387F9F55E6451D5314BE37184E119AFAD959696FCBF1BE9AF0A6C2252C,220,180,36,I;16

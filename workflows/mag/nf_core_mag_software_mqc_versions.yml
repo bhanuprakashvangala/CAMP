@@ -1,0 +1,32 @@
+BOWTIE2_ASSEMBLY_BUILD:
+  bowtie2: 2.4.2
+BOWTIE2_PHIX_REMOVAL_ALIGN:
+  bowtie2: 2.4.2
+BOWTIE2_PHIX_REMOVAL_BUILD:
+  bowtie2: 2.4.2
+BUSCO_UNTAR:
+  untar: 1.34
+CAT_DB_UNTAR:
+  untar: 1.34
+CAT_FASTQ:
+  cat: 9.5
+FASTP:
+  fastp: 1.0.1
+FASTQC_RAW:
+  fastqc: 0.12.1
+FASTQC_TRIMMED:
+  fastqc: 0.12.1
+GTDBTK_DB_PREPARATION:
+  tar: 1.34
+GUNZIP_SHORTREAD_ASSEMBLIES:
+  gunzip: 1.13
+MEGAHIT:
+  megahit: 1.2.9
+METASPADES:
+  spades: 4.1.0
+PRODIGAL:
+  prodigal: 2.6.3
+  pigz: 2.6
+Workflow:
+    nf-core/mag: v5.4.2-g5dabb01
+    Nextflow: 25.10.4

@@ -1,0 +1,3 @@
+run_accession	study_accession	fastq1_url	fastq2_url	fastq1_bytes	fastq2_bytes	chunks
+ERR1094279	PRJEB11501	https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR109/009/ERR1094279/ERR1094279_1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR109/009/ERR1094279/ERR1094279_2.fastq.gz	42093878	42971791	2
+ERR1094281	PRJEB11501	https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR109/001/ERR1094281/ERR1094281_1.fastq.gz	https://ftp.sra.ebi.ac.uk/vol1/fastq/ERR109/001/ERR1094281/ERR1094281_2.fastq.gz	66511589	67619325	2

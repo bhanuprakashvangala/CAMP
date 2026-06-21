@@ -1,0 +1,199 @@
+import csv
+import subprocess
+import tempfile
+
+
+def load_samples(path):
+    with open(path, newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        return {row["sample"]: row for row in reader}
+
+
+SAMPLES = load_samples(config["samplesheet"])
+SAMPLE_IDS = list(SAMPLES)
+FEATURE_CLASSES = config["feature_classes"]
+
+
+rule all:
+    input:
+        "results/all_features.csv",
+        "results/task_metrics_detailed.csv",
+        "results/task_metrics_sizey_like.csv",
+        "results/system_config.json",
+
+
+rule validate_inputs:
+    input:
+        image=lambda wildcards: SAMPLES[wildcards.sample]["image"],
+        mask=lambda wildcards: SAMPLES[wildcards.sample]["mask"],
+        params=config["params"],
+    output:
+        validated="results/validated/{sample}.txt",
+        metrics="metrics/validate_inputs/{sample}.json",
+    log:
+        "logs/validate/{sample}.log",
+    params:
+        strace_log="logs/strace/validate_inputs/{sample}.strace.log",
+    shell:
+        """
+        python3 scripts/profile_task.py \
+          --task-type validate_inputs \
+          --task-id {wildcards.sample} \
+          --sample {wildcards.sample} \
+          --declared-inputs {input.image} {input.mask} {input.params} \
+          --original-inputs {input.image} {input.mask} \
+          --outputs {output.validated} \
+          --metrics-json {output.metrics} \
+          --strace-log {params.strace_log} \
+          --stdout-log {log} \
+          -- \
+          python3 scripts/validate_case.py \
+            --sample {wildcards.sample} \
+            --image {input.image} \
+            --mask {input.mask} \
+            --params {input.params} \
+            --output {output.validated}
+        """
+
+
+rule extract_feature_class:
+    input:
+        validated="results/validated/{sample}.txt",
+        image=lambda wildcards: SAMPLES[wildcards.sample]["image"],
+        mask=lambda wildcards: SAMPLES[wildcards.sample]["mask"],
+        params=config["params"],
+    output:
+        features="results/by_feature_class/{sample}.{feature_class}.csv",
+        metrics="metrics/extract_feature_class/{sample}.{feature_class}.json",
+    log:
+        "logs/extract/{sample}.{feature_class}.log",
+    threads: 1
+    resources:
+        mem_mb=config["resources"]["extract_mem_mb"],
+        runtime=config["resources"]["extract_runtime_min"],
+    params:
+        label=lambda wildcards: SAMPLES[wildcards.sample].get("label", "1"),
+        strace_log="logs/strace/extract_feature_class/{sample}.{feature_class}.strace.log",
+    shell:
+        """
+        python3 scripts/profile_task.py \
+          --task-type extract_feature_class \
+          --task-id {wildcards.sample}.{wildcards.feature_class} \
+          --sample {wildcards.sample} \
+          --feature-class {wildcards.feature_class} \
+          --declared-inputs {input.validated} {input.image} {input.mask} {input.params} \
+          --original-inputs {input.image} {input.mask} \
+          --outputs {output.features} \
+          --metrics-json {output.metrics} \
+          --strace-log {params.strace_log} \
+          --stdout-log {log} \
+          -- \
+          python3 scripts/extract_feature_class.py \
+            --sample {wildcards.sample} \
+            --image {input.image} \
+            --mask {input.mask} \
+            --label {params.label} \
+            --params {input.params} \
+            --feature-class {wildcards.feature_class} \
+            --output {output.features}
+        """
+
+
+rule merge_sample_features:
+    input:
+        expand(
+            "results/by_feature_class/{{sample}}.{feature_class}.csv",
+            feature_class=FEATURE_CLASSES,
+        ),
+    output:
+        sample_csv="results/by_sample/{sample}.csv",
+        metrics="metrics/merge_sample_features/{sample}.json",
+    log:
+        "logs/merge_sample/{sample}.log",
+    params:
+        strace_log="logs/strace/merge_sample_features/{sample}.strace.log",
+    shell:
+        """
+        python3 scripts/profile_task.py \
+          --task-type merge_sample_features \
+          --task-id {wildcards.sample} \
+          --sample {wildcards.sample} \
+          --declared-inputs {input} \
+          --outputs {output.sample_csv} \
+          --metrics-json {output.metrics} \
+          --strace-log {params.strace_log} \
+          --stdout-log {log} \
+          -- \
+          python3 scripts/merge_feature_classes.py \
+            --sample {wildcards.sample} \
+            --inputs {input} \
+            --output {output.sample_csv}
+        """
+
+
+rule merge_all_samples:
+    input:
+        expand("results/by_sample/{sample}.csv", sample=SAMPLE_IDS),
+    output:
+        all_features="results/all_features.csv",
+        metrics="metrics/merge_all_samples/merge_all_samples.json",
+    log:
+        "logs/merge_all.log",
+    params:
+        strace_log="logs/strace/merge_all_samples/merge_all_samples.strace.log",
+    shell:
+        """
+        python3 scripts/profile_task.py \
+          --task-type merge_all_samples \
+          --task-id merge_all_samples \
+          --declared-inputs {input} \
+          --outputs {output.all_features} \
+          --metrics-json {output.metrics} \
+          --strace-log {params.strace_log} \
+          --stdout-log {log} \
+          -- \
+          python3 scripts/merge_all_samples.py \
+            --inputs {input} \
+            --output {output.all_features}
+        """
+
+
+rule aggregate_task_metrics:
+    input:
+        validate=expand("metrics/validate_inputs/{sample}.json", sample=SAMPLE_IDS),
+        extract=expand(
+            "metrics/extract_feature_class/{sample}.{feature_class}.json",
+            sample=SAMPLE_IDS,
+            feature_class=FEATURE_CLASSES,
+        ),
+        merge_sample=expand("metrics/merge_sample_features/{sample}.json", sample=SAMPLE_IDS),
+        merge_all="metrics/merge_all_samples/merge_all_samples.json",
+    output:
+        detailed="results/task_metrics_detailed.csv",
+        sizey="results/task_metrics_sizey_like.csv",
+        system_config="results/system_config.json",
+    log:
+        "logs/aggregate_task_metrics.log",
+    run:
+        with tempfile.NamedTemporaryFile("w", delete=False) as handle:
+            for path in input:
+                handle.write(f"{path}\n")
+            manifest = handle.name
+        with open(log[0], "w") as log_handle:
+            subprocess.run(
+                [
+                    "python3",
+                    "scripts/aggregate_task_metrics.py",
+                    "--input-list",
+                    manifest,
+                    "--detailed-csv",
+                    output.detailed,
+                    "--sizey-csv",
+                    output.sizey,
+                    "--system-config",
+                    output.system_config,
+                ],
+                check=True,
+                stdout=log_handle,
+                stderr=subprocess.STDOUT,
+            )

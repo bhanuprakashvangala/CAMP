@@ -1,0 +1,4 @@
+Sample_Name	Library_ID	Lane	Colour_Chemistry	SeqType	Organism	Strandedness	UDG_Treatment	R1	R2	BAM
+ERR2564026	ERR2564026_lib1	1	4	SE	Homo_sapiens	double	none	/shared/eager_data/ERR2564026.fastq.gz	NA	NA
+ERR2564029	ERR2564029_lib1	1	4	SE	Homo_sapiens	double	none	/shared/eager_data/ERR2564029.fastq.gz	NA	NA
+ERR2564033	ERR2564033_lib1	1	4	SE	Homo_sapiens	double	none	/shared/eager_data/ERR2564033.fastq.gz	NA	NA

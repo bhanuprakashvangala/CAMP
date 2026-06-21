@@ -1,0 +1,17 @@
+ASHLAR:
+  ashlar: 1.18.0
+BACKSUB:
+  backsub: 0.4.1
+BASICPY:
+  basicpy: 1.2.0
+BFTOOLS_SHOWINF:
+  showinf: 8.0.0
+CELLPOSE:
+  cellpose: 3.0.1
+DEEPCELL_MESMER:
+  deepcell_mesmer: 0.4.1
+MCQUANT:
+  mcquant: 1.5.4
+Workflow:
+    nf-core/mcmicro: v2.0.0
+    Nextflow: 25.10.4

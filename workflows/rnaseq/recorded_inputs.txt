@@ -1,0 +1,6 @@
+workflow_source_url=https://github.com/nf-core/rnaseq.git
+workflow_version=3.25.0
+recorded_run_commit=891468c53574d531ae3f75b3a558552839cf973d
+paper_dataset_description=RNA-seq test-profile dataset used for the held-out deployment run in the paper
+recorded_run_samplesheet_url=https://raw.githubusercontent.com/nf-core/test-datasets/626c8fab639062eade4b10747e919341cbf9b41a/samplesheet/v3.10/samplesheet_test.csv
+recorded_run_command_profile=test,apptainer

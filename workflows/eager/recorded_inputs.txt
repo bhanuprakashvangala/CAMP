@@ -1,0 +1,8 @@
+workflow_source_url=https://github.com/nf-core/eager.git
+workflow_version=2.5.3
+paper_dataset_description=Ancient-DNA reconstruction libraries aligned against GRCh38
+recorded_run_samplesheet=samplesheet_remote.tsv
+recorded_run_accessions=ERR2564026,ERR2564029,ERR2564033
+additional_downloaded_accessions_seen_in_download_log=ERR2573055,ERR2573061,ERR2573070,ERR2573074,ERR2573077,ERR2573081,ERR2573093
+reference_fasta_name=Homo_sapiens_assembly38.fasta
+reference_source_url=not preserved in this repo snapshot; provide the GRCh38 FASTA used by nf-core/eager v2.5.3

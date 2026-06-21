@@ -1,0 +1,9 @@
+workflow_source_url=https://github.com/nf-core/chipseq.git
+workflow_version=2.1.0
+recorded_run_commit=76e2382b6d443db4dc2396e6831d1243256d80b0
+paper_dataset_description=ChIP-seq test-profile dataset used for the held-out deployment run in the paper
+recorded_run_samplesheet_url=https://raw.githubusercontent.com/nf-core/test-datasets/chipseq/samplesheet/v2.1/samplesheet_test.csv
+recorded_validated_samplesheet=samplesheet_valid_remote.csv
+recorded_reference_fasta_url=https://raw.githubusercontent.com/nf-core/test-datasets/atacseq/reference/genome.fa
+recorded_reference_gtf_url=https://raw.githubusercontent.com/nf-core/test-datasets/atacseq/reference/genes.gtf
+recorded_run_command_profile=test,apptainer

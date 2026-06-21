@@ -1,0 +1,17 @@
+process,total_rows
+adapter_removal,3
+bwa,3
+damageprofiler,3
+endorSpy,3
+fastqc,3
+fastqc_after_clipping,3
+get_software_versions,1
+makeBWAIndex,1
+makeFastaIndex,1
+makeSeqDict,1
+markduplicates,3
+multiqc,1
+output_documentation,1
+preseq,3
+qualimap,3
+samtools_flagstat,3

@@ -1,0 +1,342 @@
+{
+  "0b802441daac4d80": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-8",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130680,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "15421c25aac95925": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-3",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "1792b5849b118fcf": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-2",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "1bdcca85615124ea": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-4",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "1f4bb80d4933821c": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-6",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "2143b16bf389579c": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-18",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130652,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "26c01fc9f1f2028b": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-15",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "2955fe0850d7d2d8": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-18",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130648,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "29b351890d43874f": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-1",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "369d7834ddccd5b4": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-14",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130656,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "36abc2e90071ab3d": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-9",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130652,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "39ca0ee66846676b": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-7",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130672,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "490235d031380a49": {
+    "cpu_count": 32,
+    "hostname": "compute-st-nodes-1",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130672,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "6359b612688d2e54": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-12",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "6543ac81e42a68da": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-12",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130648,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "78e96af8d9714ba7": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-8",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "7cc0697b4749b394": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-10",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "83db9c7f1593787e": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-9",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "89f3587075ea59e5": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-4",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130644,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "8c25c11785930611": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-15",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130676,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "92e4220b15b19b4e": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-6",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130660,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "a95b30535cf16fc7": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-16",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "af43276d4c09186d": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-1",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130660,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "b98f70ec79a92118": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-5",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130648,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "bc9bff447294cbbf": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-7",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "c5228c3021b05733": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-14",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "c57628692156dbfe": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-13",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "e9c6a3b285c65c78": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-3",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130644,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "ebb935c31862dc2a": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-17",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130672,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "f0bbbea849360d7d": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-13",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "f16005cb25e639fd": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-17",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "f2644c74e3c9601d": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-16",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130652,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "f8e6e9a3d2e308cb": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-11",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130668,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  },
+  "ffaf8fea046bc3f8": {
+    "cpu_count": 32,
+    "hostname": "compute-dy-nodes-10",
+    "kernel": "6.8.0-1050-aws",
+    "machine": "x86_64",
+    "mem_total_kb": 261130664,
+    "platform": "Linux-6.8.0-1050-aws-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "strace": "/usr/bin/strace"
+  }
+}

@@ -1,0 +1,8 @@
+jobs: 640
+local-cores: 1
+latency-wait: 120
+slurm: true
+default-resources:
+  - mem_mb=1024
+  - runtime=60
+  - slurm_partition=compute

@@ -1,0 +1,13 @@
+BOWTIE2_PHIX_REMOVAL_ALIGN:
+  bowtie2: 2.4.2
+BOWTIE2_PHIX_REMOVAL_BUILD:
+  bowtie2: 2.4.2
+FASTP:
+  fastp: 1.0.1
+FASTQC_RAW:
+  fastqc: 0.12.1
+FASTQC_TRIMMED:
+  fastqc: 0.12.1
+Workflow:
+    nf-core/mag: v5.4.2-g5dabb01
+    Nextflow: 25.10.4
