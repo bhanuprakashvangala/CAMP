@@ -2,9 +2,9 @@
 
 This directory contains the paper-faithful gating entry points used between the baseline prediction stage and the selective audit rerun stage.
 
-Reviewer-facing sequence:
+Sequence:
 
-1. Run the baseline workflow first, as described in [../workflows/README.md](../workflows/README.md).
+1. Run the baseline workflow first, as described in [workflows/README.md](../../workflows/README.md).
 2. Generate or collect the prediction CSV for that experiment.
 3. Run the appropriate gating command below.
 4. Use the generated `task_plan.csv` in the selective `eBPF` rerun command for Experiment 2, or use it to filter `per_task_after_rerun.csv` before the replay-based Experiment 1 `strace` replay step.
@@ -20,11 +20,11 @@ The two scripts in this directory always write:
 
 Experiment 1 uses point-prediction outputs such as:
 
-- [../results/predictions_all.csv](../results/predictions_all.csv)
+- [results/predictions_all.csv](../../results/predictions_all.csv)
 
 Experiment 2 uses probabilistic prediction outputs such as:
 
-- [../results/predictions_qlgbm_exp2_all.csv](../results/predictions_qlgbm_exp2_all.csv)
+- [results/predictions_qlgbm_exp2_all.csv](../../results/predictions_qlgbm_exp2_all.csv)
 
 If you are reproducing only one workflow, you may add `--workflow <workflow_name>` to keep only that workflow's rows.
 
@@ -77,7 +77,7 @@ python audit/strace/filter_after_by_task_plan.py \
   --output workflows/<workflow_name>/per_task_after_audit.csv
 ```
 
-The filtered `per_task_after_audit.csv` is then the input to the workflow-specific `replay_c_bytes_from_after_csv.sh` command described in [../workflows/README.md](../workflows/README.md).
+The filtered `per_task_after_audit.csv` is then the input to the workflow-specific `replay_c_bytes_from_after_csv.sh` command described in [workflows/README.md](../../workflows/README.md).
 
 ## Experiment 2
 
@@ -151,7 +151,7 @@ This produces:
 - `code/gating/exp2_qlgbm_sizey_scores_b_0.1.csv`
 - `code/gating/exp2_qlgbm_sizey_task_plan_b_0.1.csv`
 
-Use the generated `task_plan.csv` in the selective eBPF rerun command for `bowtie`, `minimap`, or `mcmicro` from [../workflows/README.md](../workflows/README.md). The selective eBPF wrapper reads `audit_flag` and attaches eBPF only for rows marked `Audit`.
+Use the generated `task_plan.csv` in the selective eBPF rerun command for `bowtie`, `minimap`, or `mcmicro` from [workflows/README.md](../../workflows/README.md). The selective eBPF wrapper reads `audit_flag` and attaches eBPF only for rows marked `Audit`.
 
 ## Output To Workflow Handoff
 

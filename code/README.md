@@ -9,11 +9,11 @@ This directory contains the ML-side scripts, preserved training outputs, and fig
 - `experiment_3/` contains the active-learning evaluation scripts.
 - `reruns/` contains the paper-faithful rerun path built around the shipped `per_task_full.pkl` model bundle.
 
-## Reviewer Use
+## Reproduction
 
-For artifact review, please treat this directory as the ML-side handoff after a workflow rerun has produced a workflow-level task table.
+Treat this directory as the ML-side handoff after a workflow rerun has produced a workflow-level task table.
 
-The reviewer-facing sequence on the ML side is:
+The sequence on the ML side is:
 
 1. Reproduce a workflow from [../workflows/README.md](../workflows/README.md).
 2. Build the workflow-level rerun table such as `task_metrics_rerun.csv` or the raw Experiment 2 eBPF rerun CSV.
@@ -66,4 +66,4 @@ The current artifact fully supports:
 - selective `eBPF` reproduction for Experiment 2 workflows
 - validation against the preserved workflow and audit CSVs
 
-The current artifact does not yet provide a clean reviewer-facing command chain that regenerates `results/predictions_all.csv` or `results/predictions_qlgbm_exp2_all.csv` directly from newly rerun workflow outputs without additional ML-side bridging. For review of the workflow, gating, and selective-audit path, please use the preserved prediction CSVs listed above as the gating inputs.
+This snapshot does not regenerate `results/predictions_all.csv` or `results/predictions_qlgbm_exp2_all.csv` directly from newly rerun workflow outputs; that bridging is out of scope for this snapshot. Use the preserved prediction CSVs listed above as the gating inputs for the workflow, gating, and selective-audit path.

@@ -40,7 +40,7 @@ End-to-end validation path:
 
 1. Reproduce one preserved workflow run from [workflows/README.md](workflows/README.md).
 2. Build the workflow-level per-task table from that rerun.
-3. Predict memory from static task information (`workflow`, `process`, `a_bytes`). The reviewer-facing handoff uses the preserved prediction CSVs documented in [code/README.md](code/README.md).
+3. Predict memory from static task information (`workflow`, `process`, `a_bytes`). The handoff uses the preserved prediction CSVs documented in [code/README.md](code/README.md).
 4. Generate the gating plan from the predictions with [code/gating/experiment1_gating_logic_paper.py](code/gating/experiment1_gating_logic_paper.py) (point) or [code/gating/experiment2_gating_logic_paper.py](code/gating/experiment2_gating_logic_paper.py) (distribution).
 5. Apply the gate only to tasks marked `Audit`: Experiment 2 tasks receive `eBPF` collection through the selective wrapper in [audit/ebpf](audit/ebpf); Experiment 1 tasks receive `strace` collection after filtering the rerun table with [audit/strace/filter_after_by_task_plan.py](audit/strace/filter_after_by_task_plan.py).
 6. Merge the audited dynamic features back into the workflow task table - this adds the `c_bytes` used by the enhanced model view.

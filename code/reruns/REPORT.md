@@ -20,9 +20,9 @@ Untouched: zoo definitions, `MIN_INSTANCES=10`, IPW weighting `1/p_t`, `SAFETY_K
 - `predict_memory_unified.py` - max-aggregation deployment CLI.
 - `run_active_learning.py` - round-based active learning with the NGBoost gate for Experiment 1 and the Q-LGBM gate for Experiment 2.
 - `compare_old_vs_new.py` - replays every row of the joined dataset through both old and new deployment paths, then writes the wastage and OOM deltas per workflow and overall.
-- `sanity_checks.py` - TASK 6 invariants: zoo cardinality, max-aggregation dominance over LGBM-only, and NGBoost sigma vs LGBM-pair sigma summary stats.
+- `sanity_checks.py` - checks the invariants: zoo cardinality, max-aggregation dominance over LGBM-only, and NGBoost sigma vs LGBM-pair sigma summary stats.
 
-## TASK 1 - `train_full.py` Summary
+## train_full.py
 
 For each `(bucket, feature-view)` the script:
 
@@ -35,7 +35,7 @@ For each `(bucket, feature-view)` the script:
 
 NGBoost is wrapped in `NGBLogMu` so `model.predict(X)` returns the LogNormal location `mu_log` directly, which keeps the deployment-time interface uniform across the zoo.
 
-## TASK 2 - `predict_memory_unified.py`
+## predict_memory_unified.py
 
 ```python
 if c is None or info.get("joint_models") is None:
@@ -54,7 +54,7 @@ M_safe = float(max(safe_candidates))
 
 The candidate breakdown is logged to stderr so a deployment trace shows which model class drove the allocation.
 
-## TASK 3 - Experiment 1 NGBoost Gate
+## Experiment 1 NGBoost gate
 
 ```python
 def gate_scores_exp1(model, candidates, train_audited):
@@ -69,11 +69,11 @@ def gate_scores_exp1(model, candidates, train_audited):
 
 `ngb_dist()` extracts `dist.loc` and `dist.scale` from `NGBRegressor(Dist=LogNormal).pred_dist(X)`. In ngboost 0.5.10, `dist.loc` is `mu_log` and `dist.scale` is `sigma_log`.
 
-## TASK 4 - Experiment 2 Q-LGBM Gate
+## Experiment 2 Q-LGBM gate
 
 Unchanged. Q-LGBM remains the Experiment 2 distribution route, with `sigma_log = (q95 - q05) / (2 * Z95)` and `Z95 ~= 1.6449`.
 
-## TASK 5 - Re-running Section VI
+## Run order
 
 Run order in `reruns/`:
 
@@ -82,13 +82,13 @@ Run order in `reruns/`:
 3. `python compare_old_vs_new.py` - writes `models_unified/compare_old_vs_new.csv`.
 4. `python -u run_active_learning.py` - writes `results_active_learning.csv` and `figures/fig_e3_al_curves.png`.
 
-## TASK 6 - Sanity Checks
+## Sanity Checks
 
-Filled in from `models_unified/sanity_report.json`:
+From `sanity_report.json` (written by `sanity_checks.py`):
 
-- (a) cardinality: _populated after run_
-- (b) max-aggregation dominance: _populated after run_
-- (c) NGBoost sigma vs LGBM-pair sigma: _populated after run_
+- (a) Cardinality: 15 buckets total, all 15 with 6 `sizey_models`; 10 with 6 `joint_models`; the 5 iwd buckets have `joint_models = None` (no `c`).
+- (b) Max-aggregation dominance: the deployed safe allocation is `>=` the LGBM-only safe allocation on every probed row, by construction.
+- (c) NGBoost sigma vs LGBM-pair sigma: NGBoost per-row `sigma_log` is larger in scale (median ~0.044 vs ~0.005 for the seed-pair proxy) with weak rank correlation (~0.22), i.e. qualitatively similar but not identical.
 
 ## Caveats
 
