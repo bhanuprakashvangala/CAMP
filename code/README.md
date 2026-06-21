@@ -20,7 +20,7 @@ The reviewer-facing sequence on the ML side is:
 3. Use the preserved prediction CSV for the corresponding experiment as the current gating input:
    - [../results/predictions_all.csv](../results/predictions_all.csv) for Experiment 1
    - [../results/predictions_qlgbm_exp2_all.csv](../results/predictions_qlgbm_exp2_all.csv) for Experiment 2
-4. Run the gating step from [../gating_logic/README.md](../gating_logic/README.md).
+4. Run the gating step from [gating/README.md](gating/README.md).
 5. Apply selective `strace` or selective `eBPF` only to the task instances marked `Audit`.
 6. Merge the resulting `c_bytes` or eBPF audit features back into the workflow task table and compare against the preserved outputs.
 

@@ -1,4 +1,6 @@
-This directory collects the shared eBPF tracing material used by the Experiment 2 workflow artifacts.
+# eBPF audit lane (online)
+
+This directory holds the shared eBPF tracing material used by the Experiment 2 workflows. See [../README.md](../README.md) for how it relates to the offline `strace` lane.
 
 Files:
 - `ebpf_audit.py`: shared tracer that attaches BCC probes to a live task PID and writes `ebpf_attribution_<PID>.tsv`

@@ -8,8 +8,8 @@ Command structure used throughout this README:
 - Replay-based Experiment 1 workflows: first run the workflow normally to generate the workflow outputs, `nf-trace-rerun.txt`, and `per_task_after_rerun.csv`; then filter `per_task_after_rerun.csv` by the Experiment 1 `task_plan.csv` and run the bundled `strace` replay and merge steps on only the `Audit` subset
 - Experiment 2 workflows: first run the workflow normally without eBPF; then apply the gating logic and rerun only the task instances marked `Audit` with the eBPF overlay enabled
 
-The shared artifact-level eBPF notes and helper scripts are collected in [../EBPF/README.md](../EBPF/README.md).
-The exact gating commands that generate `scores` CSVs and `task_plan.csv` files are collected in [../gating_logic/README.md](../gating_logic/README.md).
+The shared artifact-level eBPF notes and helper scripts are collected in [../audit/ebpf/README.md](../audit/ebpf/README.md).
+The exact gating commands that generate `scores` CSVs and `task_plan.csv` files are collected in [../code/gating/README.md](../code/gating/README.md).
 
 ## Workflow To ML Handoff
 
@@ -21,15 +21,15 @@ For `eager`, `rnaseq`, `mag`, `mag_karlsson`, and `chipseq`, the workflow sectio
 
 Dataset download info: wget https://ftp.ensembl.org/pub/release-104/fasta/rattus_norvegicus/dna/Rattus_norvegicus.Rnor_6.0.dna.toplevel.fa.gz
 
-Please use [samplesheet_traced_remote.csv](methyl_seq/samplesheet_traced_remote.csv) as the exact `640`-sample remote manifest matching the recorded methylseq strace population. It covers all traced sample tags that appear in the recorded aggregated task list.
+Please use [samplesheet_traced_remote.csv](methylseq/samplesheet_traced_remote.csv) as the exact `640`-sample remote manifest matching the recorded methylseq strace population. It covers all traced sample tags that appear in the recorded aggregated task list.
 
 To reproduce the preserved methylseq inputs, please install `Nextflow` with `Java`, provide a Conda-compatible setup with `mamba` or `micromamba`, make sure `strace` is available on the execution nodes, and use a `Slurm` environment because the recorded run used Slurm-backed configs.
 
 Please clone the upstream workflow source from `https://github.com/nf-core/methylseq.git` and check out the recorded local snapshot revision `5aa56467a85a5e2d6795ea72dfa5a5f0c9babc23` before running the commands below. The workflow entrypoint in the cloned repository is `main.nf`.
 
-Recorded compact comparison CSVs included in [methyl_seq](methyl_seq):
-- [task_instances_traced.csv](methyl_seq/task_instances_traced.csv) as the recorded compact `process,tag,status` task-instance list with `2350` data rows
-- [task_instance_summary_traced.csv](methyl_seq/task_instance_summary_traced.csv) as the recorded per-process task-instance counts
+Recorded compact comparison CSVs included in [methylseq](methylseq):
+- [task_instances_traced.csv](methylseq/task_instances_traced.csv) as the recorded compact `process,tag,status` task-instance list with `2350` data rows
+- [task_instance_summary_traced.csv](methylseq/task_instance_summary_traced.csv) as the recorded per-process task-instance counts
 
 ```bash
 # 1. clone the workflow source and pin it to the recorded snapshot
@@ -39,22 +39,22 @@ git checkout 5aa56467a85a5e2d6795ea72dfa5a5f0c9babc23
 
 # 2. download the exact traced FASTQ population used by the recorded task list
 mkdir -p <fastq_data_dir>
-wget -c -i ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/fastq_urls_traced.txt -P <fastq_data_dir>
+wget -c -i ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/fastq_urls_traced.txt -P <fastq_data_dir>
 
 # 3. download the recorded reference FASTA
 mkdir -p <reference_dir>
 wget -c https://ftp.ensembl.org/pub/release-104/fasta/rattus_norvegicus/dna/Rattus_norvegicus.Rnor_6.0.dna.toplevel.fa.gz -P <reference_dir>
 
 # 4. rewrite the traced remote samplesheet so the FASTQ paths point to your local dataset directory
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/scripts/rewrite_samplesheet_paths.py \
-  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/samplesheet_traced_remote.csv \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/scripts/rewrite_samplesheet_paths.py \
+  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/samplesheet_traced_remote.csv \
   --data-dir <fastq_data_dir> \
-  --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/samplesheet_traced_local.csv
+  --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/samplesheet_traced_local.csv
 
 # 5. baseline workflow rerun without strace
 nextflow run . -profile mamba \
-  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/configs/slurm_mamba_nostrace.config -qs 128 \
-  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/samplesheet_traced_local.csv \
+  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/configs/slurm_mamba_nostrace.config -qs 128 \
+  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/samplesheet_traced_local.csv \
   --outdir <baseline_results_dir> \
   -work-dir <baseline_work_dir> \
   --igenomes_ignore \
@@ -63,8 +63,8 @@ nextflow run . -profile mamba \
 
 # 6. instrumented strace rerun for dynamic features
 nextflow run . -profile mamba \
-  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/configs/slurm_mamba.config -qs 128 \
-  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/samplesheet_traced_local.csv \
+  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/configs/slurm_mamba.config -qs 128 \
+  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/samplesheet_traced_local.csv \
   --outdir <results_dir> \
   -work-dir <work_dir> \
   --igenomes_ignore \
@@ -73,8 +73,8 @@ nextflow run . -profile mamba \
 
 # 7. resumed balanced strace rerun, if you need to continue the recorded retry path
 nextflow run . -resume -profile mamba \
-  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/configs/slurm_mamba_balanced.config \
-  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methyl_seq/samplesheet_traced_local.csv \
+  -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/configs/slurm_mamba_balanced.config \
+  --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/methylseq/samplesheet_traced_local.csv \
   --outdir <results_dir> \
   -work-dir <work_dir> \
   --igenomes_ignore \
@@ -84,7 +84,7 @@ nextflow run . -resume -profile mamba \
 
 Command order for `methylseq`:
 - use the baseline no-`strace` rerun to verify the workflow runs successfully on the preserved `640`-sample manifest
-- use the instrumented `strace` rerun to compare task-instance counts against [task_instances_traced.csv](methyl_seq/task_instances_traced.csv) and [task_instance_summary_traced.csv](methyl_seq/task_instance_summary_traced.csv)
+- use the instrumented `strace` rerun to compare task-instance counts against [task_instances_traced.csv](methylseq/task_instances_traced.csv) and [task_instance_summary_traced.csv](methylseq/task_instance_summary_traced.csv)
 
 The recorded `2350` task rows include `COMPLETED`, `CACHED`, and `ABORTED` entries from the paper's run history, so the exact status mix can differ if the rerun does not follow the same initial plus resume path.
 
@@ -129,22 +129,22 @@ nextflow run . -profile singularity \
   --fasta <reference_dir>/Homo_sapiens_assembly38.fasta
 
 # 6. keep only the Audit rows from the Experiment 1 task plan
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/scripts/filter_after_by_task_plan.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/filter_after_by_task_plan.py \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_after_rerun.csv \
   --task-plan <task_plan.csv> \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_after_audit.csv
 
 # 7. replay only the audited rerun work directories under strace to produce c-bytes
-bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/scripts/replay_c_bytes_from_after_csv.sh \
+bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/replay_c_bytes_from_after_csv.sh \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_after_audit.csv \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_c_rerun.csv
 
 # 8. build the compact rerun CSV and compare it against task_metrics_recorded.csv
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/scripts/build_base_dataset_from_trace.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/build_base_dataset_from_trace.py \
   --trace ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/nf-trace-rerun.txt \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/task_metrics_base_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/scripts/merge_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/merge_task_metrics.py \
   --base ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/task_metrics_base_rerun.csv \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_after_audit.csv \
   --c-bytes ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/eager/per_task_c_rerun.csv \
@@ -177,20 +177,20 @@ nextflow run . -profile test,apptainer \
   --igenomes_ignore \
   --igenomes_base <dummy_igenomes_dir>
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/scripts/filter_after_by_task_plan.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/filter_after_by_task_plan.py \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_after_rerun.csv \
   --task-plan <task_plan.csv> \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_after_audit.csv
 
-bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/scripts/replay_c_bytes_from_after_csv.sh \
+bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/replay_c_bytes_from_after_csv.sh \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_after_audit.csv \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_c_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/scripts/build_base_dataset_from_trace.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/build_base_dataset_from_trace.py \
   --trace ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/nf-trace-rerun.txt \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/task_metrics_base_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/scripts/merge_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/merge_task_metrics.py \
   --base ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/task_metrics_base_rerun.csv \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_after_audit.csv \
   --c-bytes ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/rnaseq/per_task_c_rerun.csv \
@@ -222,20 +222,20 @@ nextflow run . -profile test,apptainer \
   --igenomes_ignore \
   --igenomes_base <dummy_igenomes_dir>
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/scripts/filter_after_by_task_plan.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/filter_after_by_task_plan.py \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_after_rerun.csv \
   --task-plan <task_plan.csv> \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_after_audit.csv
 
-bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/scripts/replay_c_bytes_from_after_csv.sh \
+bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/replay_c_bytes_from_after_csv.sh \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_after_audit.csv \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_c_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/scripts/build_base_dataset_from_trace.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/build_base_dataset_from_trace.py \
   --trace ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/nf-trace-rerun.txt \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/task_metrics_base_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/scripts/merge_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/merge_task_metrics.py \
   --base ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/task_metrics_base_rerun.csv \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_after_audit.csv \
   --c-bytes ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag/per_task_c_rerun.csv \
@@ -271,20 +271,20 @@ nextflow run . -profile apptainer \
   --igenomes_base <dummy_igenomes_dir> \
   --input ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/samplesheet_local.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/scripts/filter_after_by_task_plan.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/filter_after_by_task_plan.py \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_after_rerun.csv \
   --task-plan <task_plan.csv> \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_after_audit.csv
 
-bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/scripts/replay_c_bytes_from_after_csv.sh \
+bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/replay_c_bytes_from_after_csv.sh \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_after_audit.csv \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_c_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/scripts/build_base_dataset_from_trace.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/build_base_dataset_from_trace.py \
   --trace ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/nf-trace-rerun.txt \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/task_metrics_base_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/scripts/merge_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/merge_task_metrics.py \
   --base ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/task_metrics_base_rerun.csv \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_after_audit.csv \
   --c-bytes ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mag_karlsson/per_task_c_rerun.csv \
@@ -314,20 +314,20 @@ nextflow run . -profile test,apptainer \
   --igenomes_ignore \
   --igenomes_base <dummy_igenomes_dir>
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/scripts/filter_after_by_task_plan.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/filter_after_by_task_plan.py \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_after_rerun.csv \
   --task-plan <task_plan.csv> \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_after_audit.csv
 
-bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/scripts/replay_c_bytes_from_after_csv.sh \
+bash ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/replay_c_bytes_from_after_csv.sh \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_after_audit.csv \
   ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_c_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/scripts/build_base_dataset_from_trace.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/build_base_dataset_from_trace.py \
   --trace ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/nf-trace-rerun.txt \
   --output ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/task_metrics_base_rerun.csv
 
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/scripts/merge_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/strace/merge_task_metrics.py \
   --base ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/task_metrics_base_rerun.csv \
   --after ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_after_audit.csv \
   --c-bytes ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/chipseq/per_task_c_rerun.csv \
@@ -393,8 +393,8 @@ nextflow run . -profile slurm \
   -c nextflow_repro.config \
   -c conf/ebpf_selective_overlay.config \
   --camp_task_plan <task_plan.csv> \
-  --camp_run_with_optional_audit ../../EBPF/run_with_optional_audit.py \
-  --camp_ebpf_tracer ../../EBPF/ebpf_audit.py \
+  --camp_run_with_optional_audit ../../audit/ebpf/run_with_optional_audit.py \
+  --camp_ebpf_tracer ../../audit/ebpf/ebpf_audit.py \
   --outdir <results_dir> \
   --metrics_dir <metrics_dir> \
   --work_dir <work_dir>
@@ -418,7 +418,7 @@ The preserved local mirrored run expanded those two public images into `420` pub
 
 The preserved run metadata and local source snapshot identify this workflow as `nf-core/mcmicro`. The bundled [recorded_software_versions.yml](mcmicro/recorded_software_versions.yml) records `Workflow: nf-core/mcmicro: v2.0.0`. The exact public commit hash is not pinned in this artifact folder, so the command sequence below preserves the recorded inputs and parameters while cloning the upstream `nf-core/mcmicro` source.
 
-The baseline `mcmicro` rerun does not need root. The selective eBPF rerun does require root execution permission plus BCC support on the Linux compute nodes, and it uses the shared wrapper and tracer documented in [../EBPF/README.md](../EBPF/README.md). It also expects a gating task plan generated from the current baseline prediction output.
+The baseline `mcmicro` rerun does not need root. The selective eBPF rerun does require root execution permission plus BCC support on the Linux compute nodes, and it uses the shared wrapper and tracer documented in [../audit/ebpf/README.md](../audit/ebpf/README.md). It also expects a gating task plan generated from the current baseline prediction output.
 
 Reviewer sequence for `mcmicro` from the current artifact snapshot:
 
@@ -456,8 +456,8 @@ nextflow run . -profile apptainer \
   -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mcmicro/configs/slurm_5nodes_exclusive.config \
   -c ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mcmicro/configs/ebpf_apptainer_selective_artifact.config \
   --camp_task_plan <task_plan.csv> \
-  --camp_run_with_optional_audit ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/EBPF/run_with_optional_audit.py \
-  --camp_ebpf_tracer ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/EBPF/ebpf_audit.py \
+  --camp_run_with_optional_audit ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/ebpf/run_with_optional_audit.py \
+  --camp_ebpf_tracer ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/ebpf/ebpf_audit.py \
   --input_cycle ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mcmicro/samplesheet_public_cycif_5k_local.csv \
   --marker_sheet ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mcmicro/markers_test_full.csv \
   --illumination basicpy \
@@ -467,7 +467,7 @@ nextflow run . -profile apptainer \
   -work-dir <work_dir>
 
 # 6. merge the raw eBPF task table
-python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/EBPF/merge_mcmicro_ebpf_task_metrics.py \
+python ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/audit/ebpf/merge_mcmicro_ebpf_task_metrics.py \
   --outdir <results_dir> \
   --work-dir <work_dir> \
   --csv-out ../IEEE_CLUSTER_2026_CAMP_ARTIFACT/workflows/mcmicro/task_metrics_with_ebpf_rerun.csv
@@ -503,8 +503,8 @@ nextflow run . -profile slurm \
   -c nextflow_repro.config \
   -c conf/ebpf_selective_overlay.config \
   --camp_task_plan <task_plan.csv> \
-  --camp_run_with_optional_audit ../../EBPF/run_with_optional_audit.py \
-  --camp_ebpf_tracer ../../EBPF/ebpf_audit.py \
+  --camp_run_with_optional_audit ../../audit/ebpf/run_with_optional_audit.py \
+  --camp_ebpf_tracer ../../audit/ebpf/ebpf_audit.py \
   --outdir <results_dir> \
   --metrics_dir <metrics_dir> \
   --work_dir <work_dir>

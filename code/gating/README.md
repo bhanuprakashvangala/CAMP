@@ -37,14 +37,14 @@ Example command:
 ```bash
 cd IEEE_CLUSTER_2026_CAMP_ARTIFACT
 
-python gating_logic/experiment1_gating_logic_paper.py \
+python code/gating/experiment1_gating_logic_paper.py \
   --predictions results/predictions_all.csv \
   --prediction-model-name lgbm_sizey \
   --predicted-column pred_lgbm_sizey_MB \
   --safe-column safe_lgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/exp1_lgbm_sizey_scores_b_0.1.csv \
-  --out-plan gating_logic/exp1_lgbm_sizey_task_plan_b_0.1.csv
+  --out-scores code/gating/exp1_lgbm_sizey_scores_b_0.1.csv \
+  --out-plan code/gating/exp1_lgbm_sizey_task_plan_b_0.1.csv
 ```
 
 Workflow-specific example:
@@ -52,28 +52,28 @@ Workflow-specific example:
 ```bash
 cd IEEE_CLUSTER_2026_CAMP_ARTIFACT
 
-python gating_logic/experiment1_gating_logic_paper.py \
+python code/gating/experiment1_gating_logic_paper.py \
   --predictions results/predictions_all.csv \
   --workflow eager \
   --prediction-model-name lgbm_sizey \
   --predicted-column pred_lgbm_sizey_MB \
   --safe-column safe_lgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/eager_exp1_scores.csv \
-  --out-plan gating_logic/eager_exp1_task_plan.csv
+  --out-scores code/gating/eager_exp1_scores.csv \
+  --out-plan code/gating/eager_exp1_task_plan.csv
 ```
 
 This produces:
 
-- `gating_logic/exp1_lgbm_sizey_scores_b_0.1.csv`
-- `gating_logic/exp1_lgbm_sizey_task_plan_b_0.1.csv`
+- `code/gating/exp1_lgbm_sizey_scores_b_0.1.csv`
+- `code/gating/exp1_lgbm_sizey_task_plan_b_0.1.csv`
 
 Use the generated `task_plan.csv` to select the `Audit` subset from `per_task_after_rerun.csv` before running the replay-based Experiment 1 `strace` replay step. The shared filter command is:
 
 ```bash
-python workflows/scripts/filter_after_by_task_plan.py \
+python audit/strace/filter_after_by_task_plan.py \
   --after workflows/<workflow_name>/per_task_after_rerun.csv \
-  --task-plan gating_logic/<workflow_name>_exp1_task_plan.csv \
+  --task-plan code/gating/<workflow_name>_exp1_task_plan.csv \
   --output workflows/<workflow_name>/per_task_after_audit.csv
 ```
 
@@ -88,7 +88,7 @@ Example command:
 ```bash
 cd IEEE_CLUSTER_2026_CAMP_ARTIFACT
 
-python gating_logic/experiment2_gating_logic_paper.py \
+python code/gating/experiment2_gating_logic_paper.py \
   --predictions results/predictions_qlgbm_exp2_all.csv \
   --prediction-model-name qlgbm_sizey \
   --mean-column pred_qlgbm_sizey_MB \
@@ -97,8 +97,8 @@ python gating_logic/experiment2_gating_logic_paper.py \
   --q50-column q50_qlgbm_sizey_MB \
   --q95-column q95_qlgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/exp2_qlgbm_sizey_scores_b_0.1.csv \
-  --out-plan gating_logic/exp2_qlgbm_sizey_task_plan_b_0.1.csv
+  --out-scores code/gating/exp2_qlgbm_sizey_scores_b_0.1.csv \
+  --out-plan code/gating/exp2_qlgbm_sizey_task_plan_b_0.1.csv
 ```
 
 Workflow-specific examples:
@@ -106,7 +106,7 @@ Workflow-specific examples:
 ```bash
 cd IEEE_CLUSTER_2026_CAMP_ARTIFACT
 
-python gating_logic/experiment2_gating_logic_paper.py \
+python code/gating/experiment2_gating_logic_paper.py \
   --predictions results/predictions_qlgbm_exp2_all.csv \
   --workflow bowtie2_audit_nf \
   --prediction-model-name qlgbm_sizey \
@@ -116,10 +116,10 @@ python gating_logic/experiment2_gating_logic_paper.py \
   --q50-column q50_qlgbm_sizey_MB \
   --q95-column q95_qlgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/bowtie_exp2_scores.csv \
-  --out-plan gating_logic/bowtie_exp2_task_plan.csv
+  --out-scores code/gating/bowtie_exp2_scores.csv \
+  --out-plan code/gating/bowtie_exp2_task_plan.csv
 
-python gating_logic/experiment2_gating_logic_paper.py \
+python code/gating/experiment2_gating_logic_paper.py \
   --predictions results/predictions_qlgbm_exp2_all.csv \
   --workflow minimap2_audit_nf \
   --prediction-model-name qlgbm_sizey \
@@ -129,10 +129,10 @@ python gating_logic/experiment2_gating_logic_paper.py \
   --q50-column q50_qlgbm_sizey_MB \
   --q95-column q95_qlgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/minimap_exp2_scores.csv \
-  --out-plan gating_logic/minimap_exp2_task_plan.csv
+  --out-scores code/gating/minimap_exp2_scores.csv \
+  --out-plan code/gating/minimap_exp2_task_plan.csv
 
-python gating_logic/experiment2_gating_logic_paper.py \
+python code/gating/experiment2_gating_logic_paper.py \
   --predictions results/predictions_qlgbm_exp2_all.csv \
   --workflow mcmicro \
   --prediction-model-name qlgbm_sizey \
@@ -142,14 +142,14 @@ python gating_logic/experiment2_gating_logic_paper.py \
   --q50-column q50_qlgbm_sizey_MB \
   --q95-column q95_qlgbm_sizey_MB \
   --budget 0.10 \
-  --out-scores gating_logic/mcmicro_exp2_scores.csv \
-  --out-plan gating_logic/mcmicro_exp2_task_plan.csv
+  --out-scores code/gating/mcmicro_exp2_scores.csv \
+  --out-plan code/gating/mcmicro_exp2_task_plan.csv
 ```
 
 This produces:
 
-- `gating_logic/exp2_qlgbm_sizey_scores_b_0.1.csv`
-- `gating_logic/exp2_qlgbm_sizey_task_plan_b_0.1.csv`
+- `code/gating/exp2_qlgbm_sizey_scores_b_0.1.csv`
+- `code/gating/exp2_qlgbm_sizey_task_plan_b_0.1.csv`
 
 Use the generated `task_plan.csv` in the selective eBPF rerun command for `bowtie`, `minimap`, or `mcmicro` from [../workflows/README.md](../workflows/README.md). The selective eBPF wrapper reads `audit_flag` and attaches eBPF only for rows marked `Audit`.
 
@@ -161,4 +161,4 @@ For Experiment 2, the workflow README already shows the required parameter:
 
 - `--camp_task_plan <task_plan.csv>`
 
-For Experiment 1, pass the generated task plan into `workflows/scripts/filter_after_by_task_plan.py`, then use the filtered `per_task_after_audit.csv` in the workflow-specific `strace` replay step.
+For Experiment 1, pass the generated task plan into `audit/strace/filter_after_by_task_plan.py`, then use the filtered `per_task_after_audit.csv` in the workflow-specific `strace` replay step.
