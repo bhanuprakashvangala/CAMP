@@ -10,6 +10,9 @@ active-learning gate.
 ## Layout
 
 ```text
+workflows/   Reviewer-facing workflow rerun inputs, commands, and validation CSVs
+gating_logic/ Paper-faithful gating entry points and task-plan generation commands
+EBPF/        Shared selective eBPF wrapper, tracer, and helper utilities
 figures/    Every bundled figure used in the paper, PNG + PDF
 code/       Scripts that produce the models, results, and figures
   experiment_1/   6-class zoo, Sizey vs Joint feature views (deterministic)
@@ -24,7 +27,17 @@ models/     Trained per-bucket zoo (per_task_full.pkl) and the Exp-2
 results/    Derived tables the figures read (predictions, AL curves,
             old-vs-new deployment comparison, sanity report)
 figures/README.md  Maps each bundled figure to the script that generates it
+code/README.md     Reviewer-facing ML reproduction notes and current scope
 ```
+
+## Start Here
+
+For artifact review, the intended reading and execution order is:
+
+1. Start with [workflows/README.md](workflows/README.md) and reproduce one workflow run.
+2. Use [code/README.md](code/README.md) to understand the ML-side handoff and the current preserved-prediction scope.
+3. Run the paper-faithful gating commands from [gating_logic/README.md](gating_logic/README.md).
+4. For selective audit implementation details, use [EBPF/README.md](EBPF/README.md) together with the workflow-specific commands.
 
 ## Reviewer Sequence
 
@@ -34,6 +47,7 @@ For artifact review, the intended end-to-end validation path is:
 2. Build the workflow-level per-task table from that rerun.
 3. Use the workflow output as input to the memory-prediction stage.
    The first prediction stage uses static task information such as `workflow`, `process`, and `a_bytes`.
+   In the current artifact snapshot, the reviewer-facing gating handoff uses the preserved prediction CSVs documented in [code/README.md](code/README.md).
 4. Generate the gating plan from the prediction outputs.
    Paper-faithful gating entry points are in [gating_logic/experiment1_gating_logic_paper.py](gating_logic/experiment1_gating_logic_paper.py) and [gating_logic/experiment2_gating_logic_paper.py](gating_logic/experiment2_gating_logic_paper.py).
 5. Apply the gating decision only to the tasks marked for audit.
@@ -41,7 +55,7 @@ For artifact review, the intended end-to-end validation path is:
    For the replay-based Experiment 1 workflows, those tasks are the ones that should receive `strace`-based dynamic feature collection after the rerun task table is filtered by the generated `task_plan.csv`.
 6. Merge the audited dynamic features back into the workflow task table.
    This is the step that adds the `c_bytes` information used by the enhanced model view.
-7. Re-run the prediction stage with the enriched task table and evaluate the CAMP solution.
+7. Evaluate the CAMP solution against the preserved workflow and audit outputs.
    In the paper workflow, the static-input prediction is used first, the gate selects which tasks to audit, and the audited `c` information is then used to improve the next prediction/training stage.
 
 At a high level, this sequence validates both the problem and the solution discussed in the paper:
@@ -57,47 +71,16 @@ Please use the workflow folders as the reviewer handoff for detailed run instruc
 - For Experiment 1 workflow details, use the individual folders under [workflows](workflows), especially `eager`, `rnaseq`, `mag`, `mag_karlsson`, `chipseq`, `methyl_seq`, and `pyradiomics`.
 - For Experiment 2 workflow details, use [workflows/bowtie](workflows/bowtie), [workflows/minimap](workflows/minimap), and [workflows/mcmicro](workflows/mcmicro).
 - For selective audit implementation details, use [EBPF/README.md](EBPF/README.md) together with [gating_logic/README.md](gating_logic/README.md).
+- For ML-side scripts, preserved prediction CSVs, and current reproduction scope, use [code/README.md](code/README.md).
 
-## Reproduce
+## Code Guide
 
-Requires Python 3.12 with `numpy pandas scikit-learn lightgbm ngboost matplotlib scipy`.
+Use [code/README.md](code/README.md) for the ML-side artifact notes:
 
-```bash
-# train the per-bucket zoo  -> models/per_task_full.pkl
-python code/reruns/train_full.py
-
-# deployment-time safe allocation for one task
-python code/reruns/predict_memory_unified.py <workflow> <process> <a_bytes> [<c_bytes>]
-
-# active learning curves     -> results/results_active_learning.csv + figures
-python code/reruns/run_active_learning.py
-
-# headline calibration / wastage / OOM figures
-python code/experiment_1/fig9_regen.py
-python code/experiment_1/fig_method_summary.py
-```
-
-Paths in the scripts assume the original `IEEE_CLUSTER_MAIN/` working tree; adjust the
-`REPO` and data constants at the top of each script to point at this artifact's `data/`
-and `models/` directories.
-
-## Workflow Outputs
-
-If a reviewer starts from an individual workflow rerun, please use
-[workflows/README.md](workflows/README.md) as the handoff guide into the
-memory-prediction artifact. For `eager`, `rnaseq`, `mag`, `mag_karlsson`,
-and `chipseq`, the workflow-side file that connects into the point-based
-ML code is the reconstructed `task_metrics_rerun.csv`. In the preserved
-snapshot, each workflow's `task_metrics_recorded.csv` matches that
-workflow's exact row subset in [data/all_workflows.csv](data/all_workflows.csv),
-so a reviewer can substitute a newly generated `task_metrics_rerun.csv`
-for the corresponding workflow slice before running the ML scripts here.
-
-`pyradiomics` and `methylseq` are ingested separately in the current
-artifact: the ML code uses
-[data/task_metrics_pyradiomics_32k_detailed.csv](data/task_metrics_pyradiomics_32k_detailed.csv)
-for PyRadiomics and [data/trace_methylseq.csv](data/trace_methylseq.csv)
-for methylseq.
+- which `code/` subdirectories correspond to Experiments 1, 2, and 3
+- which prediction CSVs are preserved and used by the gating stage
+- which scripts are directly runnable from this artifact snapshot
+- where the current fresh prediction-regeneration limitation begins
 
 ## Key Numbers
 
